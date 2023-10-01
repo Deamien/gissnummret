@@ -16,7 +16,7 @@ class Program
         while (försök < 5)
         {
             int användarGissning = GissaTal();
-            bool ärRätt = KontrolleraGissning(användarGissning, rättTal);
+            bool ärRätt = CheckGuess(användarGissning, rättTal);
 
             if (ärRätt)
             {
@@ -63,7 +63,7 @@ class Program
         return gissning;
     }
 
-    static bool KontrolleraGissning(int gissning, int rättTal)
+    static bool CheckGuess(int gissning, int rättTal)
     {
         return gissning == rättTal;
     }
