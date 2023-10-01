@@ -1,0 +1,72 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Välkommen! Jag tänker på ett nummer. Kan du gissa vilket? Du får fem försök.");
+        Console.WriteLine("Jag har tänkt på ett tal mellan 1 och 20.");
+        Console.WriteLine("Du får fem försök att gissa vilket det är.");
+
+        // Slumpa fram ett tal mellan 1 och 20
+        Random slump = new Random();
+        int rättTal = slump.Next(1, 21);
+
+        int försök = 0;
+        bool harGissatRätt = false;
+
+        while (försök < 5)
+        {
+            int användarGissning = GissaTal();
+            bool ärRätt = KontrolleraGissning(användarGissning, rättTal);
+
+            if (ärRätt)
+            {
+                Console.WriteLine("Wohoo! Du klarade det!");
+                harGissatRätt = true;
+                break;
+            }
+            else if (användarGissning < rättTal)
+            {
+                Console.WriteLine("Tyvärr, du gissade för lågt!");
+            }
+            else
+            {
+                Console.WriteLine("Tyvärr, du gissade för högt!");
+            }
+
+            försök++;
+        }
+
+        if (!harGissatRätt)
+        {
+            Console.WriteLine("Tyvärr, du lyckades inte gissa talet på fem försök!");
+        }
+    }
+
+    static int GissaTal()
+    {
+        int gissning;
+        bool ärGiltigInmatning = false;
+
+        do
+        {
+            Console.Write("Gissa numret: ");
+            string inmatning = Console.ReadLine();
+
+            ärGiltigInmatning = int.TryParse(inmatning, out gissning);
+
+            if (!ärGiltigInmatning)
+            {
+                Console.WriteLine("Ogiltig inmatning. Ange ett heltal.");
+            }
+        } while (!ärGiltigInmatning);
+
+        return gissning;
+    }
+
+    static bool KontrolleraGissning(int gissning, int rättTal)
+    {
+        return gissning == rättTal;
+    }
+}
